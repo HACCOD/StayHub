@@ -4,6 +4,11 @@
     { "src": "app.js", "use": "@vercel/node" }
   ],
   "routes": [
+    {
+      "src": "/",
+      "status": 308,
+      "headers": { "Location": "/listings" }
+    },
     { "src": "/(.*)", "dest": "/app.js" }
   ]
 }
