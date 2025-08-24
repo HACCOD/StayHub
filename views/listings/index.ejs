@@ -1,0 +1,79 @@
+<% layout('layouts/boilerplate') -%>
+
+<body>
+  <div class="px-3 py-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap">
+      <div class="d-flex align-items-center flex-grow-1 overflow-hidden">
+        <div
+          id="categoryBar"
+          class="d-flex flex-nowrap gap-3 overflow-auto flex-grow-1 px-1"
+          style="scroll-behavior: smooth; white-space: nowrap"
+        >
+          <% 
+            const categories = [
+              { icon: "fa-fire", label: "Trending" },
+              { icon: "fa-bed", label: "Rooms" },
+              { icon: "fa-city", label: "Iconic Cities" },
+              { icon: "fa-mountain", label: "Mountains" },
+              { icon: "fa-person-swimming", label: "Amazing Pools" },
+              { icon: "fa-tents", label: "Camping" },
+              { icon: "fa-cow", label: "Farms" },
+              { icon: "fa-landmark-dome", label: "Domes" },
+              { icon: "fa-sailboat", label: "Boats" },
+            ];
+          %>
+
+          <% categories.map(category => { %>
+            <a href="/listings/category?category=<%= category.label %>" style="text-decoration: none;">
+            <div class="d-flex flex-column align-items-center text-muted hover-text-dark">
+              <i class="fa-solid <%= category.icon %>"></i>
+              <small><%= category.label %></small>
+            </div>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- Toggle (wraps below on small screens) -->
+      <div class="form-check form-switch ms-sm-3 mt-2 mt-sm-0 flex-shrink-0">
+        <input class="form-check-input" type="checkbox" id="taxToggle" />
+        <label class="form-check-label small text-muted" for="taxToggle">
+          Display total after taxes
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3">
+    <% for(let listing of allListings) { %>
+    <a href="/listings/<%= listing._id %>" class="card-link">
+      <div class="card card-box listingCard">
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top card-image-bottom"
+          style="height: 18rem; object-fit: cover"
+          alt="<%= listing.title %>"
+        />
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+          <p class="card-text">
+            <b><%= listing.title %></b><br />
+            <%= listing.price.toLocaleString("en-IN") %> PKR/Night
+            <span class="hidden tax">&nbsp; + 10% GST</span>
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+
+  <script>
+    let taxToggle = document.querySelector("#taxToggle");
+
+    taxToggle.addEventListener("click", () => {
+      document.querySelectorAll(".tax").forEach((tex) => {
+        tex.classList.toggle("hidden"); 
+      });
+    });
+  </script>
+</body>

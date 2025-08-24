@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') -%>
+
+<body>
+  <div class="row col-4 offset-4 mt-5">
+    <!-- <%- include("../includes/flash.ejs") %> -->
+    <h2>Login to Wanderlust</h2>
+
+    <form method="post" action="/login" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="username" class="form-label"
+          >Username<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          id="username"
+          name="username"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label"
+          >Password<span class="text-danger">*</span></label
+        >
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <a
+        href="/auth/google"
+        class="btn btn-outline-dark d-flex align-items-center"
+      >
+        <i class="fa-brands fa-google me-2"></i>
+        Sign in with Google
+      </a><br/>
+
+      <button type="submit" class="btn btn-success">Login</button>
+    </form>
+  </div>
+  <br /><br />
+</body>
